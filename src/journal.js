@@ -8,8 +8,27 @@ Entry.prototype.wordCount = function() {
   return text.trim().split(/\s+/).length;
 }
 
-Entry.prototype.letterCount = function() {
-  let count = this.body.match(/[a-z]/g).length;
-  count += this.body.match(/[A-Z]/g).length;
-  return count;
+Entry.prototype.vowelCount = function() {
+  const body = this.body.toLowerCase();
+  return body.match(/[aeiou]/g).length;
+}
+
+Entry.prototype.consonantCount = function() {
+  const body = this.body.toLowerCase();
+  return body.match(/[bcdfghjklmnpqrstvwxyz]/g).length;
+}
+
+Entry.prototype.getTeaser = function() {
+  const periodIndex = this.body.indexOf('.');
+  const firstSentence = this.body.slice(0, periodIndex);
+  const firstSentenceArray =  firstSentence.trim().split(/\s+/);
+  let teaser = '';
+  for (let index = 0; index < 8; index++) {
+    const element = firstSentenceArray[index];
+    teaser = `${teaser} ${element}`;
+    if (index === firstSentenceArray.length - 1) {
+      break;
+    }
+  }
+  return teaser.trim();
 }
